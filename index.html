@@ -1,1 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gato001 portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;700&display=swap');
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-blue: #00d4ff;
+            --accent-purple: #9945ff;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--primary-black);
+            color: var(--text-white);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+            opacity: 0.5;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 50px;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px var(--accent-blue)); }
+            to { filter: drop-shadow(0 0 20px var(--accent-purple)); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 50px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, var(--text-white), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-purple);
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-blue);
+            color: var(--primary-black);
+            transform: translateY(-3px);
+        }
+
+        /* Profile Picture Container */
+        .profile-container {
+            position: relative;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        
+
+        .profile-border {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 25px;
+            animation: rotate 4s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .profile-border::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            background: var(--primary-black);
+            border-radius: 20px;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(26, 26, 26, 0.95));
+        }
+
+        .projects-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .project-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 15px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-blue);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .project-description {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--accent-blue);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            background: var(--accent-blue);
+            color: var(--primary-black);
+            transform: scale(1.05);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 80px;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .skill-card.slide-left {
+            animation: slideLeft 0.8s ease-out forwards;
+        }
+
+        .skill-card.slide-right {
+            animation: slideRight 0.8s ease-out forwards;
+            transform: translateX(50px);
+        }
+
+        @keyframes slideLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        .skill-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-white);
+        }
+
+        .skill-items {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin: 5px 5px 5px 0;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent-blue);
+            color: var(--primary-black);
+            transform: scale(1.05);
+        }
+
+        /* Certifications Section */
+        .certifications-section {
+            padding: 100px 20px;
+            background: rgba(10, 10, 10, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .badges-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .badge-wrapper {
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .badge-wrapper.float-up {
+            animation: floatUp 1s ease-out forwards, floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .cert-badge {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            padding: 10px;
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .cert-badge:hover::before {
+            animation: shine 0.5s ease;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .cert-badge:hover {
+            transform: scale(1.1) rotateY(10deg);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .cert-badge img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .cert-name {
+            font-size: 0.8rem;
+            text-align: center;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* PDF Viewer Section */
+        .pdf-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pdf-card {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pdf-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .pdf-icon {
+            font-size: 3rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+
+        .pdf-title {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 10px;
+        }
+
+        .pdf-download {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-download:hover {
+            color: var(--accent-purple);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(26, 26, 26, 0.95));
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) rotate(360deg);
+            background: var(--accent-blue);
+            color: var(--primary-black);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: var(--primary-black);
+            color: var(--text-gray);
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-container">
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">EA</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#certificates">Certificates</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Eduardo Almeyda</h1>
+                <p class="subtitle">Cloud Networking & Cybersecurity Student</p>
+                <p>Certified Student At Queens Technical High School, Specializing on software development, Networking and Cybersecurity. I like AI tools, Pentesting and HW projects. 
+        
+                    </p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/gato001k1" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/eduardo-almeyda-a1691529a/" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section" id="projects">
+        <div class="projects-container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-radio project-icon"></i>
+                    </div>
+                    <h3 class="project-title">CC1101 IO433 Projects</h3>
+                    <div class="project-tech">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">RF</span>
+                        <span class="tech-tag">Hardware</span>
+                        <span class="tech-tag">433MHz</span>
+                    </div>
+                    <p class="project-description">
+                        
+                        Improved a RF communication project using cc1101 trasceiver modules for different frequencies.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://github.com/gato001k1/io433" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-skull-crossbones project-icon"></i>
+                    </div>
+                    <h3 class="project-title">Batch Backdoor</h3>
+                    <div class="project-tech">
+                        <span class="tech-tag">Batch</span>
+                        <span class="tech-tag">CMD</span>
+                        <span class="tech-tag">Security Research</span>
+                        <span class="tech-tag">Windows</span>
+                    </div>
+                    <p class="project-description">
+                        Developed a Backdoor for windows systems using batch scripting and sftp/ftp servers.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://github.com/gato001k1/Batchdoor" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-comments project-icon"></i>
+                    </div>
+                    <h3 class="project-title">Batch Messaging App</h3>
+                    <div class="project-tech">
+                        <span class="tech-tag">Batch</span>
+                        <span class="tech-tag">Networking</span>
+                        <span class="tech-tag">CMD</span>
+                        <span class="tech-tag">Chat System</span>
+                    </div>
+                    <p class="project-description">
+                        Created and designed a cli based communication application that allows users to chat, send files, have usernames and multiple chats with batch scripting, and created my own protocol based on sftp and ftp file checks.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-code"></i> Details
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-satellite-dish project-icon"></i>
+                    </div>
+                    <h3 class="project-title">LoRa C++ Implementation</h3>
+                    <div class="project-tech">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">LoRa</span>
+                        <span class="tech-tag">Bruce FW</span>
+                        <span class="tech-tag">ESP32</span>
+                    </div>
+                    <p class="project-description">
+                        Implemented LoRa chatting functions inside an existing project (Bruce Firmware).
+                    </p>
+                    <div class="project-links">
+                        <a href="https://github.com/gato001k1/Bruce-Dev" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section" id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="fas fa-microchip skill-icon"></i>
+                <h3 class="skill-title">Hardware & IoT</h3>
+                <div class="skill-items">
+                    <span class="skill-tag">ESP32</span>
+                    <span class="skill-tag">Arduino</span>
+                    <span class="skill-tag">Raspberry Pi</span>
+                    <span class="skill-tag">PCB Design</span>
+                    <span class="skill-tag">KiCad</span>
+                    <span class="skill-tag">Electronics</span>
+                    <span class="skill-tag">LoRa</span>
+                    <span class="skill-tag">Ham Radio</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-code skill-icon"></i>
+                <h3 class="skill-title">Programming</h3>
+                <div class="skill-items">
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">Batch/CMD</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">GUI Development</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-shield-alt skill-icon"></i>
+                <h3 class="skill-title">Cybersecurity</h3>
+                <div class="skill-items">
+                    <span class="skill-tag">Pentesting</span>
+                    <span class="skill-tag">Nmap</span>
+                    <span class="skill-tag">Metasploit</span>
+                    <span class="skill-tag">John</span>
+                    <span class="skill-tag">Hashcat</span>
+                    <span class="skill-tag">Bluetooth Exploitation</span>
+                    <span class="skill-tag">Windows Login Exploitation</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-brain skill-icon"></i>
+                <h3 class="skill-title">AI & Machine Learning</h3>
+                <div class="skill-items">
+                    <span class="skill-tag">LLM</span>
+                    <span class="skill-tag">ML</span>
+                    <span class="skill-tag">AI Development</span>
+                    <span class="skill-tag">Neural Networks</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-desktop skill-icon"></i>
+                <h3 class="skill-title">Operating Systems</h3>
+                <div class="skill-items">
+                    <span class="skill-tag">Kali Linux</span>
+                    <span class="skill-tag">ParrotOS</span>
+                    <span class="skill-tag">Linux</span>
+                    <span class="skill-tag">macOS</span>
+                    <span class="skill-tag">Windows</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-tools skill-icon"></i>
+                <h3 class="skill-title">Software Tools</h3>
+                <div class="skill-items">
+                    <span class="skill-tag">VSCode</span>
+                    <span class="skill-tag">Cursor</span>
+                    <span class="skill-tag">MS Office</span>
+                    <span class="skill-tag">Photoshop</span>
+                    <span class="skill-tag">Illustrator</span>
+                    <span class="skill-tag">Sony Vegas</span>
+                    <span class="skill-tag">Unity</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="certifications-section" id="certifications">
+        <div class="cert-container">
+            <h2 class="section-title">Professional Certifications</h2>
+            <div class="badges-container">
+                <div class="badge-wrapper">
+                    <a href="https://www.credly.com/badges/2b9e84f9-b331-4543-8642-9d6e470c91b3/public_url" target="_blank" class="cert-badge">
+                        <img src="https://images.credly.com/size/110x110/images/22a0ece5-ff05-4594-8320-25e55e9ae203/image.png" alt="FCF">
+                        <span class="cert-name">Fortinet FCF Cybersecurity</span>
+                    </a>
+                </div>
+
+                <div class="badge-wrapper">
+                    <a href="https://certification.platform.comptia.org/verifycert/6-1C6-VQ8CDL" target="_blank" class="cert-badge">
+                        <img src="https://cdn.prod.website-files.com/5fc82ceef95f49286b9a1737/6310f89887e9c364bd1050e2_TestOut-Certification-Badge_Linux-Pro.png" alt="Linux Pro">
+                        <span class="cert-name">TestOut Linux Pro</span>
+                    </a>
+                </div>
+
+                <div class="badge-wrapper">
+                    <a href="https://certification.platform.comptia.org/verifycert/6-1C6-VQ8A7L" target="_blank" class="cert-badge">
+                        <img src="comptia-network.png" alt="CompTIA Network" id="comptiaImg">
+                        <span class="cert-name">CompTIA Network Competency</span>
+                    </a>
+                </div>
+
+                <div class="badge-wrapper">
+                    <a href="https://www.noctiskillbadge.org/badge/32681523" target="_blank" class="cert-badge">
+                        <img src="https://www.noctiskillbadge.org/BadgeImages/Workforce-Comp-Cred-Badge--Knowledge-Based.png" alt="NOCTI Knowledge">
+                        <span class="cert-name">NOCTI Knowledge Based</span>
+                    </a>
+                </div>
+
+                <div class="badge-wrapper">
+                    <a href="https://www.noctiskillbadge.org/badge/32686248" target="_blank" class="cert-badge">
+                        <img src="https://www.noctiskillbadge.org/BadgeImages/Workforce-Comp-Cred-Badge--Skill-Based.png" alt="NOCTI Skill">
+                        <span class="cert-name">NOCTI Skill Based</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Certificates Section -->
+    <section class="pdf-section" id="certificates">
+        <h2 class="section-title">Download Certificates</h2>
+        <div class="pdf-grid">
+            <div class="pdf-card" onclick="downloadPDF('fortinet-fcf.pdf')">
+                <i class="fas fa-file-pdf pdf-icon"></i>
+                <h3 class="pdf-title">Fortinet FCF Certificate</h3>
+                <a href="#" class="pdf-download">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+
+            <div class="pdf-card" onclick="downloadPDF('linux-pro.pdf')">
+                <i class="fas fa-file-pdf pdf-icon"></i>
+                <h3 class="pdf-title">Linux Pro Certificate</h3>
+                <a href="#" class="pdf-download">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+
+            <div class="pdf-card" onclick="downloadPDF('comptia-network.pdf')">
+                <i class="fas fa-file-pdf pdf-icon"></i>
+                <h3 class="pdf-title">CompTIA Network Certificate</h3>
+                <a href="#" class="pdf-download">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+
+            <div class="pdf-card" onclick="downloadPDF('nocti-knowledge.pdf')">
+                <i class="fas fa-file-pdf pdf-icon"></i>
+                <h3 class="pdf-title">NOCTI Knowledge Certificate</h3>
+                <a href="#" class="pdf-download">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+
+            <div class="pdf-card" onclick="downloadPDF('nocti-skill.pdf')">
+                <i class="fas fa-file-pdf pdf-icon"></i>
+                <h3 class="pdf-title">NOCTI Skill Certificate</h3>
+                <a href="#" class="pdf-download">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <p style="color: var(--text-gray); font-size: 1.2rem; margin-bottom: 20px;">
+            Let's connect and build something amazing together!
+        </p>
+        <p style="color: var(--accent-blue); font-size: 1.1rem;">
+            <i class="fas fa-envelope"></i> eduardoaltri520@gmail.com | 
+            <i class="fas fa-phone"></i> (929) 297-3538
+        </p>
+        <div class="social-links">
+            <a href="https://github.com/gato001k1" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/eduardo-almeyda-a1691529a/" target="_blank" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:eduardoaltri520@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://www.credly.com/users/eduardo-almeyda" target="_blank" class="social-link">
+                <i class="fas fa-certificate"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Eduardo Almeyda. All rights reserved. | Crafted with passion and code.</p>
+    </footer>
+
+    <script>
+        // Generate particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles on page load
+        window.addEventListener('load', () => {
+            createParticles();
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('skill-card')) {
+                        setTimeout(() => {
+                            if (index % 2 === 0) {
+                                entry.target.classList.add('slide-left');
+                            } else {
+                                entry.target.classList.add('slide-right');
+                            }
+                        }, index * 100);
+                    }
+                    if (entry.target.classList.contains('badge-wrapper')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('float-up');
+                        }, index * 200);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe skill cards
+        document.querySelectorAll('.skill-card').forEach((card, index) => {
+            observer.observe(card);
+        });
+
+        // Observe certification badges
+        document.querySelectorAll('.badge-wrapper').forEach((badge, index) => {
+            observer.observe(badge);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Profile image file input handler
+        document.getElementById('profileImg').addEventListener('error', function() {
+            this.src = 'https://via.placeholder.com/400x400/1a1a1a/00d4ff?text=EA';
+        });
+
+        // CompTIA Network image file input handler
+        document.getElementById('comptiaImg').addEventListener('error', function() {
+            this.src = 'https://via.placeholder.com/110x110/1a1a1a/00d4ff?text=CompTIA';
+        });
+
+        // Download PDF function
+        function downloadPDF(filename) {
+            // Create a temporary link element
+            const link = document.createElement('a');
+            link.href = 'certificates/' + filename;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show a notification
+            showNotification('Downloading ' + filename);
+        }
+
+        // Notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+                color: white;
+                padding: 15px 25px;
+                border-radius: 50px;
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroText = document.querySelector('.hero-text');
+            const profileContainer = document.querySelector('.profile-container');
+            
+            if (heroText && profileContainer) {
+                heroText.style.transform = `translateY(${scrolled * 0.5}px)`;
+                profileContainer.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Add typing effect to subtitle
+        const subtitle = document.querySelector('.subtitle');
+        const text = subtitle.textContent;
+        subtitle.textContent = '';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                subtitle.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        setTimeout(typeWriter, 500);
+
+        // Create custom cursor effect
+        const cursor = document.createElement('div');
+        cursor.style.cssText = `
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        `;
+
+    </script>
+</body>
+</html>
